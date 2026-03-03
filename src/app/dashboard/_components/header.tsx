@@ -1,11 +1,18 @@
+"use client"
 
 import Link from "next/link"
 import { HandCoins, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MobileMenu } from "./menu-mobile"
 import { ArrowRight, Gift, Heart, Shield, Zap, Dog } from "lucide-react";
+import { logout } from "../_actions/signOut"
 
 export function Header() {
+
+  async function handleSignout() {
+    await logout();
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
 
@@ -31,6 +38,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             className="text-rose-600 hover:text-rose-600 hover:bg-rose-50"
+            onClick={handleSignout}
           >
             <LogOut className="h-5 w-5" />
             <span className="sr-only">Sair</span>
