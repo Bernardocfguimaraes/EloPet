@@ -13,20 +13,29 @@ export function StatCard({
   description,
   value,
   icon,
-  iconClassName = "",
 }: StatCardProps) {
   return (
-    <Card className="bg-gradient-to-br from-zinc-900 to-zinc-800 text-white shadow-lg border-0">
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <div>
-          <CardTitle className="text-lg font-semibold">{title}</CardTitle>
-          <CardDescription className="text-gray-200">{description}</CardDescription>
+    // Card branco, borda suave e arredondamento moderno (2xl)
+    <Card className="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] border-slate-200/60 rounded-2xl overflow-hidden transition-all hover:shadow-md">
+      <CardHeader className="flex flex-row items-start justify-between pb-2 px-6 pt-6">
+        <div className="space-y-1.5">
+          {/* Título menor e espaçado, com cara de dashboard gringo */}
+          <CardTitle className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">
+            {title}
+          </CardTitle>
+          <CardDescription className="text-xs text-slate-400 font-medium">
+            {description}
+          </CardDescription>
         </div>
 
-        {icon}
+        {/* Ícone dentro de um "quadrado" arredondado com fundo verde clarinho */}
+        <div className="h-10 w-10 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600 shadow-sm border border-teal-100/50">
+          {icon}
+        </div>
       </CardHeader>
-      <CardContent>
-        <p className="text-3xl font-bold select-none tracking-tight">
+      
+      <CardContent className="px-6 pb-6 pt-2">
+        <p className="text-3xl font-bold select-none tracking-tight text-slate-900">
           {value}
         </p>
       </CardContent>

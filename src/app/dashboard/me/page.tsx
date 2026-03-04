@@ -19,24 +19,25 @@ export default async function Me() {
   }
 
   return (
-    // Fundo da página levemente acinzentado para destacar os cards brancos
-    <main className="w-full min-h-screen bg-slate-50 flex flex-col items-center p-4 md:p-8 gap-8 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+    <main className="w-full min-h-screen bg-zinc-50 flex flex-col items-center p-4 md:p-8 gap-8 bg-[radial-gradient(#d4d4d8_1px,transparent_1px)] [background-size:16px_16px]">
       
-      {/* Cabeçalho da Página */}
-      <div className="w-full max-w-3xl text-left">
-        <h1 className="text-3xl font-bold text-teal-950 tracking-tight">Meu Perfil</h1>
-        <p className="text-slate-500 mt-1">Personalize a página pública para receber apoio.</p>
+      {/* Título com mais peso (text-zinc-900) para não ficar apagado */}
+      <div className="w-full max-w-2xl text-left mt-2">
+        <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">Meu Perfil</h1>
+        <p className="text-base text-zinc-500 mt-1">Personalize a página pública para receber apoio.</p>
       </div>
 
-      {/* URL Preview - Agora com visual "Premium" da marca */}
-      <section className="w-full max-w-3xl bg-teal-600 text-white rounded-2xl p-1 shadow-lg shadow-teal-600/20">
-        <div className="border border-teal-500/50 rounded-xl bg-teal-600 p-4">
+      {/* URL Preview - Sombra esverdeada sutil e um "pilar" verde mais gordinho ao lado */}
+      <section className="w-full max-w-2xl bg-white border border-teal-100 rounded-2xl p-2 shadow-[0_8px_30px_-12px_rgba(20,184,166,0.2)] flex items-center group transition-all hover:border-teal-300">
+        <div className="w-1.5 h-10 bg-teal-500 rounded-full ml-2 mr-4"></div>
+        <div className="flex-1">
           <UrlPreview username={userData.username}/>
         </div>
       </section>
 
-      {/* O Componente do Perfil */}
-      <CardProfile user={userData}/>
+      <div className="w-full max-w-2xl">
+        <CardProfile user={userData}/>
+      </div>
 
     </main>
   )

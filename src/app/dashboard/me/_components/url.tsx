@@ -15,7 +15,6 @@ export function UrlPreview({username: slug}: UrlPreviewProps){
   const [isCopied, setIsCopied] = useState(false);
   const [origin, setOrigin] = useState("");
 
-  // Pega a URL do site automaticamente (localhost ou domínio real em produção)
   useEffect(() => {
     setOrigin(window.location.origin);
   }, []);
@@ -46,30 +45,33 @@ export function UrlPreview({username: slug}: UrlPreviewProps){
      setTimeout(() => setIsCopied(false), 2000); 
   }
 
+  // ESTADO 1: O usuário já tem a URL
   if(username){
     return(
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full overflow-hidden">
-          <span className="font-semibold text-teal-100 whitespace-nowrap">Sua URL:</span>
+          {/* Texto principal agora escuro para dar contraste */}
+          <span className="text-sm font-semibold text-slate-700 whitespace-nowrap">Sua URL:</span>
           
-
-          <div className="flex-1 w-full bg-teal-700/50 border border-teal-500/50 rounded-lg px-3 py-2 text-sm text-teal-50 flex items-center overflow-hidden">
+          {/* Caixa da URL com fundo cinza muito clarinho e texto nítido */}
+          <div className="flex-1 w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 flex items-center overflow-hidden shadow-inner">
              <span className="truncate">{baseUrl}/creator/{username}</span>
           </div>
         </div>
 
-
         <div className="flex items-center gap-2 w-full sm:w-auto">
+          {/* Botão de Copiar: Verde sutil (teal-50) com ícone escuro, super moderno */}
           <Button 
             onClick={handleCopy} 
-            variant="secondary" 
-            className="flex-1 sm:flex-none bg-teal-500 hover:bg-teal-400 text-white border-none h-10 px-4 transition-colors"
+            variant="outline" 
+            className="flex-1 sm:flex-none bg-teal-50 hover:bg-teal-100 text-teal-700 border-teal-200 h-10 px-4 transition-all shadow-sm"
           >
             {isCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
           </Button>
           
+          {/* Botão de Link Externo: Branco, mas fica verde ao passar o mouse */}
           <Link href={`/creator/${username}`} target="_blank" className="flex-1 sm:flex-none">
-            <Button variant="secondary" className="w-full bg-white hover:bg-teal-50 text-teal-700 h-10 px-4 shadow-sm">
+            <Button variant="outline" className="w-full bg-white hover:bg-slate-50 hover:text-teal-600 hover:border-teal-300 text-slate-500 border-slate-200 h-10 px-4 shadow-sm transition-all">
               <ExternalLink className="w-4 h-4"/>
             </Button>
           </Link>
@@ -78,31 +80,25 @@ export function UrlPreview({username: slug}: UrlPreviewProps){
     )
   }
 
-
-  return(
-    <div className="w-full">
-      <form action={submitAction} className="flex flex-col sm:flex-row gap-3 w-full">
-        
-        <div className="flex flex-1 items-center bg-white rounded-lg overflow-hidden h-11 focus-within:ring-2 focus-within:ring-teal-300 transition-all shadow-inner">
-          <span className="bg-slate-100 text-slate-500 font-medium px-3 flex items-center border-r border-slate-200 h-full text-sm select-none">
-
-            {baseUrl.replace(/^https?:\/\//, '')}/creator/
-          </span>
-          <input 
-            type="text" 
-            name="username"
-            className="flex-1 h-full outline-none text-slate-900 px-3 text-sm bg-transparent" 
-            placeholder="nome-do-pet" 
-            autoComplete="off"
-          />
-        </div>
-
-        <Button type="submit" className="bg-teal-800 hover:bg-teal-900 text-white h-11 px-6 shadow-md transition-all whitespace-nowrap font-bold">
-          Criar URL
-        </Button>
-      </form>
-      
-      {error && <p className="text-red-200 text-sm mt-3 flex items-center gap-1 font-medium">{error}</p>}
-    </div>
+  // ESTADO 2: O usuário ainda não criou a URL (Ajustei rapidinho caso ele precise criar)
+  return (
+    <form action={submitAction} className="flex flex-col sm:flex-row items-center gap-3 w-full">
+      <span className="text-sm font-semibold text-slate-700 whitespace-nowrap">Criar URL:</span>
+      <div className="flex-1 flex items-center w-full">
+        <span className="bg-slate-100 border border-r-0 border-slate-200 text-slate-500 px-3 py-2 rounded-l-lg text-sm border-r-transparent">
+          {baseUrl}/creator/
+        </span>
+        <input 
+          type="text" 
+          name="username"
+          placeholder="seu-nome"
+          className="flex-1 border border-slate-200 px-3 py-2 rounded-r-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+        />
+      </div>
+      <Button type="submit" className="bg-teal-600 hover:bg-teal-700 text-white transition-colors h-10">
+        Salvar
+      </Button>
+      {error && <span className="text-red-500 text-xs absolute -bottom-5">{error}</span>}
+    </form>
   )
 }

@@ -3,7 +3,7 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Heart } from "lucide-react"
+import { Heart, Lock } from "lucide-react"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
@@ -54,8 +54,7 @@ export function FormDonate({creatorId, slug}: FormDonateProps) {
   })
 
   async function onSubmit(data: FormData) {
-    
-    const priceInCents = Number(data.price) * 100; //centavos
+    const priceInCents = Number(data.price) * 100;
 
     const checkout = await createPayment({
       name: data.name,
@@ -69,7 +68,6 @@ export function FormDonate({creatorId, slug}: FormDonateProps) {
   }
 
   async function handlePaymentResponse(checkout: {sessionId?: string, error?: string}) {
-
       if(checkout.error){
         toast.error(checkout.error)
         return;
@@ -90,41 +88,47 @@ export function FormDonate({creatorId, slug}: FormDonateProps) {
       await (stripeClient as any)?.redirectToCheckout({
         sessionId: checkout.sessionId
       })
-    
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto border-slate-200 shadow-xl shadow-slate-200/50 rounded-2xl overflow-hidden bg-white">
-      <CardHeader className="pt-6 pb-4 text-center px-6">
-        <div className="mx-auto w-10 h-10 rounded-full flex items-center justify-center mb-3 bg-teal-50">
-          <Heart className="w-5 h-5 text-teal-600 fill-teal-500" />
-        </div>
-        <CardTitle className="text-xl font-bold text-slate-900">
-          Faça uma Doação
+    <Card className="w-full border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.03)] rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
+      
+      {/* AJUSTE 1: Trocamos o p-6 por px-6 pt-6 pb-2 (no desktop: md:pb-3). 
+        Isso gruda a linha cinza bem pertinho do texto do cabeçalho.
+      */}
+      <CardHeader className="px-6 pt-6 pb-2 md:px-8 md:pt-8 md:pb-3 border-b border-slate-100">
+        <CardTitle className="text-lg font-bold text-slate-900 flex items-center justify-between">
+          Faça uma doação
+          <Heart className="w-5 h-5 text-teal-500 fill-teal-500/20" />
         </CardTitle>
-        <CardDescription className="text-slate-500 text-sm mt-1">
-          Sua ajuda faz toda a diferença para deixar o pet saudável!
+        <CardDescription className="text-slate-500 text-xs mt-1">
+          Sua ajuda faz toda a diferença para o pet!
         </CardDescription>
       </CardHeader>
       
-      <CardContent className="px-6 pb-6 pt-2">
+      {/* AJUSTE 2: Trocamos o p-6/md:p-8 (que criava o buraco) por px-6 pb-6 pt-4 (no desktop: md:pt-5). 
+        Agora o topo do form está esmagado, empurrando o "SEU NOME" para cima.
+      */}
+      <CardContent className="px-6 pb-6 pt-4 md:px-8 md:pb-8 md:pt-5">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4"> {/* Reduzi space-y-5 para space-y-4 */}
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem className="space-y-1"> {/* Reduzi o espaço entre label e input */}
-                  <FormLabel className="text-slate-700 text-sm font-medium">Seu Nome</FormLabel>
+                <FormItem className="space-y-2">
+                  <FormLabel className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">
+                    Seu Nome
+                  </FormLabel>
                   <FormControl>
                     <Input 
-                      placeholder="Como o pet deve te chamar?" 
-                      className="h-10 rounded-lg bg-slate-50 border-slate-200 focus-visible:ring-teal-500 transition-all text-sm"
+                      placeholder="Como deseja ser chamado?" 
+                      className="h-11 rounded-xl bg-slate-50/50 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-teal-500/20 focus-visible:border-teal-500 transition-all text-sm shadow-none"
                       {...field} 
                     />
                   </FormControl>
-                  <FormMessage className="text-xs" />
+                  <FormMessage className="text-[10px] ml-1" />
                 </FormItem>
               )}
             />
@@ -133,16 +137,18 @@ export function FormDonate({creatorId, slug}: FormDonateProps) {
               control={form.control}
               name="message"
               render={({ field }) => (
-                <FormItem className="space-y-1">
-                  <FormLabel className="text-slate-700 text-sm font-medium">Mensagem de Carinho</FormLabel>
+                <FormItem className="space-y-2">
+                  <FormLabel className="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">
+                    Mensagem de Carinho
+                  </FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder="Deixe sua mensagem para o mural..." 
-                      className="resize-none rounded-lg bg-slate-50 border-slate-200 focus-visible:ring-teal-500 min-h-[70px] transition-all text-sm"
+                      placeholder="Deixe uma mensagem especial..." 
+                      className="resize-none rounded-xl bg-slate-50/50 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-teal-500/20 focus-visible:border-teal-500 min-h-[90px] transition-all text-sm shadow-none"
                       {...field} 
                     />
                   </FormControl>
-                  <FormMessage className="text-xs" />
+                  <FormMessage className="text-[10px] ml-1" />
                 </FormItem>
               )}
             />
@@ -151,13 +157,12 @@ export function FormDonate({creatorId, slug}: FormDonateProps) {
               control={form.control}
               name="price"
               render={({ field }) => (
-                <FormItem className="space-y-2">
-                  <FormLabel className="text-slate-700 text-sm font-medium">Valor da Ajuda</FormLabel>
+                <FormItem className="space-y-3 pt-2">
                   <FormControl>
                     <RadioGroup
                         onValueChange={field.onChange}
                         defaultValue={field.value}
-                        className="flex flex-row gap-2" 
+                        className="grid grid-cols-3 gap-3" 
                         >
                         {["15", "25", "35"].map((value) => {
                             const isSelected = field.value === value;
@@ -166,20 +171,18 @@ export function FormDonate({creatorId, slug}: FormDonateProps) {
                             <Label
                                 key={value}
                                 htmlFor={value}
-                                className={`flex-1 flex flex-col items-center justify-center border rounded-lg py-2 cursor-pointer transition-all duration-200 ${
+                                className={`relative flex flex-col items-center justify-center rounded-2xl py-3.5 cursor-pointer transition-all duration-300 overflow-hidden ${
                                 isSelected
-                                    ? "bg-teal-50 border-teal-500 ring-1 ring-teal-500 text-teal-700"
-                                    : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
+                                    ? "bg-teal-500 text-white shadow-md shadow-teal-500/20 scale-[1.02]"
+                                    : "bg-white border border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm"
                                 }`}
                             >
-                                {/* Escondi a 'bolinha' nativa do rádio (sr-only) para o botão ficar mais limpo */}
                                 <RadioGroupItem 
                                   value={value} 
                                   id={value} 
                                   className="sr-only" 
                                 />
-                                
-                                <span className="font-semibold text-sm">
+                                <span className={`font-bold text-sm z-10 ${isSelected ? "text-white" : "text-slate-700"}`}>
                                   R$ {value}
                                 </span>
                             </Label>
@@ -187,18 +190,28 @@ export function FormDonate({creatorId, slug}: FormDonateProps) {
                         })}
                         </RadioGroup>
                   </FormControl>
-                  <FormMessage className="text-xs" />
+                  <FormMessage className="text-[10px] ml-1" />
                 </FormItem>
               )}
             />
 
-            <Button 
-              type="submit" 
-              className="w-full rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-semibold h-11 text-base mt-2 shadow-sm transition-all"
-              disabled={form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting ? "Carregando..." : "Confirmar Doação 🐾"}
-            </Button>
+            <div className="pt-2">
+                <Button 
+                type="submit" 
+                className="w-full rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold h-12 text-sm shadow-md transition-all relative overflow-hidden group"
+                disabled={form.formState.isSubmitting}
+                >
+                <span className="relative z-10 flex items-center gap-2">
+                    {form.formState.isSubmitting ? "Processando..." : "Confirmar Doação"}
+                </span>
+                <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                </Button>
+
+                <div className="mt-4 flex items-center justify-center gap-1.5 text-slate-400">
+                    <Lock className="w-3 h-3" />
+                    <span className="text-[10px] font-medium uppercase tracking-wider">Pagamento seguro via Stripe</span>
+                </div>
+            </div>
             
           </form>
         </Form>
