@@ -92,10 +92,6 @@ export function FormDonate({creatorId, slug}: FormDonateProps) {
 
   return (
     <Card className="w-full border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.03)] rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
-      
-      {/* AJUSTE 1: Trocamos o p-6 por px-6 pt-6 pb-2 (no desktop: md:pb-3). 
-        Isso gruda a linha cinza bem pertinho do texto do cabeçalho.
-      */}
       <CardHeader className="px-6 pt-6 pb-2 md:px-8 md:pt-8 md:pb-3 border-b border-slate-100">
         <CardTitle className="text-lg font-bold text-slate-900 flex items-center justify-between">
           Faça uma doação
@@ -105,10 +101,7 @@ export function FormDonate({creatorId, slug}: FormDonateProps) {
           Sua ajuda faz toda a diferença para o pet!
         </CardDescription>
       </CardHeader>
-      
-      {/* AJUSTE 2: Trocamos o p-6/md:p-8 (que criava o buraco) por px-6 pb-6 pt-4 (no desktop: md:pt-5). 
-        Agora o topo do form está esmagado, empurrando o "SEU NOME" para cima.
-      */}
+
       <CardContent className="px-6 pb-6 pt-4 md:px-8 md:pb-8 md:pt-5">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

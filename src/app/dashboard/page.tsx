@@ -17,11 +17,9 @@ export default async function Dashboard() {
   const loginLink = await getStripeDashboard(session.user?.connectedStripeAccountId)
 
   return (
-    // Fundo limpo e um bom respiro nas laterais
     <main className="min-h-screen bg-slate-50 p-4 md:p-8">
       <div className="max-w-5xl mx-auto space-y-8">
         
-        {/* CABEÇALHO DO DASHBOARD */}
         <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Visão Geral</h1>
@@ -38,19 +36,16 @@ export default async function Dashboard() {
           )}
         </header>
 
-        {/* ALERTA DE CONTA (Se não tiver conectado) */}
         {!session.user.connectedStripeAccountId && (
           <div className="rounded-2xl border border-teal-100 bg-teal-50/50 p-6 shadow-sm">
             <CreateAccountButton/>
           </div>
         )}
 
-        {/* CARDS DE ESTATÍSTICAS */}
         <section>
           <Stats userId={session.user.id} stripeAccountId={session.user.connectedStripeAccountId ?? ""}/>
         </section>
 
-        {/* TABELA DE DOAÇÕES */}
         <section className="space-y-4 pt-4">
           <div className="flex items-center gap-2 mb-2">
             <span className="w-1.5 h-6 bg-teal-500 rounded-full block"></span>

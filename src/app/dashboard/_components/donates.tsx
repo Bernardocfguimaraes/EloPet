@@ -54,7 +54,6 @@ export function DonationTable() {
 
   return (
     <>
-      {/* VERSÃO DESKTOP: Tabela encapsulada num card elegante */}
       <div className="hidden lg:block rounded-2xl border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.03)] overflow-hidden">
         <Table>
           <TableHeader className="bg-slate-50/50">
@@ -71,7 +70,6 @@ export function DonationTable() {
                 <TableCell className="font-semibold text-slate-700">{donation.donorName}</TableCell>
                 <TableCell className="max-w-72 text-slate-500 text-sm">{donation.donorMessage}</TableCell>
                 <TableCell className="text-center">
-                  {/* Badge de Valor para chamar atenção */}
                   <span className="inline-flex items-center justify-center bg-teal-50 text-teal-700 border border-teal-100/50 px-2.5 py-1 rounded-md font-bold text-xs">
                     {formatCurrency(donation.amount / 100)}
                   </span>
@@ -85,13 +83,11 @@ export function DonationTable() {
         </Table>
       </div>
 
-      {/* VERSÃO MOBILE: Cards de lista empilhados */}
       <div className="lg:hidden space-y-4">
         {data.map((donation) => (
           <Card key={donation.id} className="rounded-xl border-slate-200/60 shadow-sm bg-white">
             <CardHeader className="p-4 pb-2 flex flex-row items-center justify-between border-b border-slate-50">
               <CardTitle className="text-base font-bold text-slate-800">{donation.donorName}</CardTitle>
-              {/* O Valor ganha destaque no topo do card */}
               <span className="inline-flex items-center justify-center bg-teal-50 text-teal-700 px-2 py-1 rounded-md font-bold text-xs">
                  {formatCurrency(donation.amount / 100)}
               </span>

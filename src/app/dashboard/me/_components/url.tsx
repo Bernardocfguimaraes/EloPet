@@ -45,22 +45,17 @@ export function UrlPreview({username: slug}: UrlPreviewProps){
      setTimeout(() => setIsCopied(false), 2000); 
   }
 
-  // ESTADO 1: O usuário já tem a URL
   if(username){
     return(
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full overflow-hidden">
-          {/* Texto principal agora escuro para dar contraste */}
           <span className="text-sm font-semibold text-slate-700 whitespace-nowrap">Sua URL:</span>
-          
-          {/* Caixa da URL com fundo cinza muito clarinho e texto nítido */}
           <div className="flex-1 w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 flex items-center overflow-hidden shadow-inner">
              <span className="truncate">{baseUrl}/creator/{username}</span>
           </div>
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          {/* Botão de Copiar: Verde sutil (teal-50) com ícone escuro, super moderno */}
           <Button 
             onClick={handleCopy} 
             variant="outline" 
@@ -68,8 +63,6 @@ export function UrlPreview({username: slug}: UrlPreviewProps){
           >
             {isCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
           </Button>
-          
-          {/* Botão de Link Externo: Branco, mas fica verde ao passar o mouse */}
           <Link href={`/creator/${username}`} target="_blank" className="flex-1 sm:flex-none">
             <Button variant="outline" className="w-full bg-white hover:bg-slate-50 hover:text-teal-600 hover:border-teal-300 text-zinc-950 border-slate-200 h-10 px-4 shadow-sm transition-all">
               <ExternalLink className="w-4 h-4"/>
@@ -79,8 +72,6 @@ export function UrlPreview({username: slug}: UrlPreviewProps){
       </div>
     )
   }
-
-  // ESTADO 2: O usuário ainda não criou a URL (Ajustei rapidinho caso ele precise criar)
   return (
     <form action={submitAction} className="flex flex-col sm:flex-row items-center gap-3 w-full">
       <span className="text-sm font-semibold text-slate-700 whitespace-nowrap">Criar URL:</span>
