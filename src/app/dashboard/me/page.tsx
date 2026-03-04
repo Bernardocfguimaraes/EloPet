@@ -22,9 +22,14 @@ export default async function Me() {
     <main className="w-full min-h-screen bg-zinc-50 flex flex-col items-center p-4 md:p-8 gap-8 bg-[radial-gradient(#d4d4d8_1px,transparent_1px)] [background-size:16px_16px]">
       
       {/* Título com mais peso (text-zinc-900) para não ficar apagado */}
-      <div className="w-full max-w-2xl text-left mt-2">
-        <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">Meu Perfil</h1>
-        <p className="text-base text-zinc-500 mt-1">Personalize a página pública para receber apoio.</p>
+      <div className="w-full max-w-2xl text-left mt-2 bg-white p-6 md:p-8 rounded-[1.25rem] border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex items-start gap-3">
+        {/* Detalhe minimalista em verde */}
+        <span className="w-1.5 h-8 bg-teal-500 rounded-full block mt-1"></span>
+        
+        <div>
+          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Meu Perfil</h1>
+          <p className="text-sm md:text-base text-slate-500 mt-1 font-medium">Personalize a página pública para receber apoio.</p>
+        </div>
       </div>
 
       {/* URL Preview - Sombra esverdeada sutil e um "pilar" verde mais gordinho ao lado */}

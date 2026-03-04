@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from 'sonner'
 import { SessionProvider } from 'next-auth/react'
 import {QueryClientContext} from '@/providers/queryclient'
+import { Footer } from "./dashboard/_components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({
         />
         </QueryClientContext>
         </SessionProvider>
+        <Footer/>
       </body>
     </html>
   );

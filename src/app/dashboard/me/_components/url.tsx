@@ -64,14 +64,14 @@ export function UrlPreview({username: slug}: UrlPreviewProps){
           <Button 
             onClick={handleCopy} 
             variant="outline" 
-            className="flex-1 sm:flex-none bg-teal-50 hover:bg-teal-100 text-teal-700 border-teal-200 h-10 px-4 transition-all shadow-sm"
+            className="flex-1 sm:flex-none bg-white hover:border-teal-300 hover:text-teal-600 text-zinc-950 h-10 px-4 transition-all shadow-sm"
           >
             {isCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
           </Button>
           
           {/* Botão de Link Externo: Branco, mas fica verde ao passar o mouse */}
           <Link href={`/creator/${username}`} target="_blank" className="flex-1 sm:flex-none">
-            <Button variant="outline" className="w-full bg-white hover:bg-slate-50 hover:text-teal-600 hover:border-teal-300 text-slate-500 border-slate-200 h-10 px-4 shadow-sm transition-all">
+            <Button variant="outline" className="w-full bg-white hover:bg-slate-50 hover:text-teal-600 hover:border-teal-300 text-zinc-950 border-slate-200 h-10 px-4 shadow-sm transition-all">
               <ExternalLink className="w-4 h-4"/>
             </Button>
           </Link>
