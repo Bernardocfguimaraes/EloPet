@@ -4,7 +4,7 @@ import Link from "next/link"
 import { HandCoins, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MobileMenu } from "./menu-mobile"
-import { ArrowRight, Gift, Heart, Shield, Zap, Dog } from "lucide-react";
+import { ArrowRight, Gift, Heart, Shield, Zap, Squirrel } from "lucide-react";
 import { logout } from "../_actions/signOut"
 
 export function Header() {
@@ -19,7 +19,7 @@ export function Header() {
       <div className="flex h-16 items-center justify-between w-full px-4 max-w-7xl mx-auto">
         <div className="flex items-center gap-2 font-semibold">
           <Link href="/dashboard" className="flex items-center gap-1 text-teal-600">
-            <Gift className="h-6 w-6 mr-2" />
+            <Squirrel className="h-6 w-6 mr-2" />
             <span className="text-xl font-bold">
               EloPet
             </span>

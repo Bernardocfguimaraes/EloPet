@@ -1,7 +1,8 @@
 import { FeatureCard } from "@/components/FeatureCard";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Gift, Heart, Shield, Zap, Dog } from "lucide-react";
+import { ArrowRight, Gift, Heart, Shield, Zap } from "lucide-react";
 import { signIn } from "@/lib/auth";
+import { Squirrel } from "lucide-react";
 
 export default function Home() {
 
@@ -20,7 +21,7 @@ export default function Home() {
       <header className="container mx-auto py-6 px-4">
         <div className="flex items-center">
           <div className="flex items-center text-teal-600 font-bold text-xl">
-            <Gift className="h-6 w-6 mr-2" />
+            <Squirrel className="h-6 w-6 mr-2" />
             <span>EloPet</span>
           </div>
         </div>
