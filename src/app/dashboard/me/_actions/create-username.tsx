@@ -4,6 +4,7 @@ import { z } from "zod"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { createSlug } from "@/utils/create-slug"
+import { revalidatePath } from "next/cache"
 
 const createUsernameSchema = z.object({
     username:z.string().min(4, "O username precisa ter no mínimo 4 caracteres")
@@ -60,6 +61,8 @@ export async function createUsername(data: CreateUsernameFormData) {
                 username: slug
             }
         });
+
+        revalidatePath("/dashboard/me");
 
         return{
             data:slug,

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Gift, Heart, Shield, Zap } from "lucide-react";
 import { signIn } from "@/lib/auth";
 import { Squirrel } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -44,18 +45,18 @@ export default function Home() {
                 complicações.
               </p>
 
-              <div className="pt-4">
-                <form action={handleRegister}>
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="bg-teal-600 hover:bg-teal-800 hover:scale-110 duration-300 transition-all text-white font-medium px-8 h-12"
-                  >
-                    Começar agora
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </form>
-              </div>
+            <div className="pt-4">
+              <Button 
+                asChild
+                size="lg"
+                className="bg-teal-600 hover:bg-teal-800 hover:scale-110 duration-300 transition-all text-white font-medium px-8 h-12"
+              >
+                <Link href="/login">
+                  Começar agora
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
             </div>
 
           </div>
