@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getInfoUser } from "./_data-access/get-info-user";
 import { notFound } from "next/navigation";
 import { FormDonate } from "./_components/form";
+import { StripeTestWarning } from "./_components/StripeTestWarning";
 
 export default async function Apoia({
   params,
@@ -23,8 +24,8 @@ export default async function Apoia({
         <div className="absolute -bottom-24 w-[400px] h-[250px] bg-teal-500/15 blur-[60px] rounded-full pointer-events-none"></div>
   
         <div className="absolute bottom-0 w-full h-12 bg-gradient-to-t from-zinc-950 to-transparent"></div>
-        
       </div>
+
       <section className="max-w-5xl mx-auto px-4 relative z-10 flex flex-col items-center -mt-18 md:-mt-20 mb-8">
         
         <div className="relative mb-3">
@@ -51,22 +52,28 @@ export default async function Apoia({
       </section>
 
       <div className="grid grid-cols-1 md:grid-cols-5 max-w-5xl mx-auto gap-6 px-4 mt-4">
-  
-        <section className="md:col-span-3 bg-white border border-slate-200/60 rounded-[2rem] p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.03)] h-fit">
-          <div className="flex items-center gap-2 mb-5">
-            <span className="w-1.5 h-6 bg-teal-500 rounded-full block"></span>
-            <h2 className="font-bold text-lg text-slate-900 tracking-tight">A história</h2>
-          </div>
-          <div className="text-slate-600 leading-relaxed text-sm md:text-base whitespace-pre-wrap">
-            {user.bio ?? "Nenhuma biografia disponível no momento. Volte em breve para conhecer mais sobre este pet!"}
-          </div>
-        </section>
+        <div className="md:col-span-3 flex flex-col gap-6 h-fit">
+          <section className="bg-white border border-slate-200/60 rounded-[2rem] p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.03)] h-fit">
+            <div className="flex items-center gap-2 mb-5">
+              <span className="w-1.5 h-6 bg-teal-500 rounded-full block"></span>
+              <h2 className="font-bold text-lg text-slate-900 tracking-tight">A história</h2>
+            </div>
+            <div className="text-slate-600 leading-relaxed text-sm md:text-base whitespace-pre-wrap">
+              {user.bio ?? "Nenhuma biografia disponível no momento. Volte em breve para conhecer mais sobre este pet!"}
+            </div>
+          </section>
+
+          <StripeTestWarning />
+
+        </div>
 
         <section className="md:col-span-2 h-fit">
           <FormDonate slug={user.username!} creatorId={user.connectedStripeAccountId ?? ""}/>
         </section>
 
       </div>
+
+
     </main>
   )
 }
